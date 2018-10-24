@@ -1,0 +1,274 @@
+<div id="home">
+	<!-- 布局 -->
+	<div class="row">
+		<div class="col-sm-3">
+			<div class="totalDiv bg-white">
+				<div class="iconDiv bg-green">
+					<i class="iconfont icon-yun"></i>
+				</div>
+				<div class="numDiv">
+					<span>99.9%</span>
+					<small>SERVER UPTIME</small>
+				</div>
+			</div>
+			<div class="totalDiv bg-white">
+				<div class="iconDiv bg-purple">
+					<i class="iconfont icon-user"></i>
+				</div>
+				<div class="numDiv">
+					<span>117k</span>
+					<small>USERS TOTAL</small>
+				</div>
+			</div>
+			<div class="totalDiv bg-white">
+				<div class="iconDiv bg-blue">
+					<i class="iconfont icon-18"></i>
+				</div>
+				<div class="numDiv">
+					<span>2,470</span>
+					<small>NEW DAILY PHOTOS</small>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="visDiv">
+				<div id="visContainer"></div>
+				<div class="numDiv">
+					<span class="c-green">14.85%</span>
+					<small>More Visitors</small>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="uptimeDiv">
+				<div id="uptimeDivContainer"></div>
+				<div class="numDiv">
+					<span class="c-purple">95.8%</span>
+					<small>CURRENT SERVER UPTIME</small>
+				</div>
+			</div>
+			<div class="salesDiv">
+				<div id="salesDivContainer"></div>
+				<div class="numDiv">
+					<span class="c-green">320,45</span>
+					<small>AVG OF SALES</small>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>
+<script>
+	$(function(){
+		drawVis();
+		drawUptime();
+		drawSales();
+		
+		function drawSales(){
+			//绘制环状图
+			var chart = Highcharts.chart('salesDivContainer', {
+				chart: {
+					margin : [0, 0 , 0, 100]
+				},
+				credits:{
+					enabled:false,
+				},
+				title: {
+					floating:true,
+					text: ''
+				},
+				tooltip: {
+					pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+				},
+				plotOptions: {
+					pie: {
+						allowPointSelect: true,
+						cursor: 'pointer',
+						dataLabels: {
+							enabled: false,
+						},
+					}
+				},
+				series: [{
+					type: 'pie',
+					innerSize: '60%',
+					name: 'Sales',
+					data: [
+						['Firefox',45.0],
+						['IE',26.8],
+						['Chrome',12.8],
+						['Safari',8.5],
+						['Opera',6.2],
+						['其他',0.7]
+					]
+				}]
+			});
+		}
+		function drawUptime(){
+			//绘制柱状图
+			var chart = Highcharts.chart('uptimeDivContainer', {
+				chart:{
+					margin:[0,0,0,0],
+				},
+				credits:{
+					enabled:false,
+				},
+				colors:['#7c31bf'],
+				title: {
+					text: ''
+				},
+				xAxis: {
+					visible:false,
+				},
+				yAxis: {
+					visible:false,
+				},
+				series: [{
+					type: 'column',
+					colorByPoint: true,
+					data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+					showInLegend: false
+				}]
+			});
+		}
+		function drawVis(){
+			//绘制图表
+			var chart = Highcharts.chart('visContainer', {
+				chart:{
+					margin:[0,0,0,0],
+				},
+				credits:{
+					enabled:false,
+				},
+				colors:['#64bc0a','#cccccc'],
+				title: {
+					text: ''
+				},
+				xAxis: {
+					visible:false,
+				},
+				yAxis: {
+					visible:false,
+					title: {
+						text: ''
+					}
+				},
+				legend: {
+					floating:true,
+					layout: 'vertical',
+					align: 'right',
+					verticalAlign: 'top'
+				},
+				plotOptions: {
+					series: {
+						label: {
+							connectorAllowed: false
+						},
+						pointStart: 2010
+					}
+				},
+				series: [{
+					name: 'Pageviews',
+					data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175,124916, 24064, 29742, 29851, 32490, 30282, 38121, 40434,43934]
+				}, {
+					name: 'Visitors',
+					data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434,43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
+				}]
+			});
+		}
+	});
+</script>
+<style>
+	#home{
+		width: 98%;
+		margin: 0 auto;
+	}
+	.bg-white{
+		background-color: white;
+	}
+/*	.c-whtite{
+		color: white;
+	}*/
+	.bg-green{
+		background-color: #64bc0a;
+	}
+	.c-green{
+		color: #64bc0a;
+	}
+	.bg-purple{
+		background-color: #7c31bf;
+	}
+	.c-purple{
+		color: #7c31bf;
+	}
+	.bg-blue{
+		background-color: #38baec;
+	}
+	.c-blue{
+		color: #38baec;
+	}
+	.outerDiv{
+		width: 100%;
+		margin: 0 auto;
+	}
+	.totalDiv{
+		overflow: hidden;
+		padding: 10px;
+		border-radius: 5px;
+		margin-top: 10px;
+	}
+	.totalDiv .iconDiv,.totalDiv .numDiv{
+		float: left;
+	}
+	.iconDiv{
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+		text-align: center;
+	}
+	.iconDiv i{
+		line-height: 50px;
+		color: white;
+		font-size: 30px;
+	}
+	.totalDiv .numDiv{
+		margin-left:20px; 
+		padding-top: 5px;
+	}
+	.numDiv span{
+		font-size: 24px;
+		line-height: 24px;
+	}
+	.numDiv small{
+		display: block;
+	}
+	#visContainer{
+		height: 230px;
+		margin-top: 10px;
+	}
+	.visDiv,.uptimeDiv,.salesDiv{
+		position: relative;
+	}
+	.visDiv .numDiv,.uptimeDiv .numDiv,.salesDiv .numDiv{
+		position: absolute;
+		top: 20px;
+		left: 20px;
+	}
+	.uptimeDiv,.salesDiv{
+		margin-top: 10px;
+	}
+	#uptimeDivContainer,#salesDivContainer{
+		height: 110px;
+	}
+	#pageviews{
+		height: 200px;
+		margin: 10px auto;
+	}
+	#download{
+		height: 200px;
+		margin: 10px auto;
+	}
+	#cpu{
+		height: 140px;
+		margin: 10px auto;
+	}
+</style>
